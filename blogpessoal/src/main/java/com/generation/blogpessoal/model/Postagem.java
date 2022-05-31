@@ -6,7 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 //Criado um Objeto de Postagem!
 @Entity //Indica p/ Spring que o Objeto criado vai ser tornar uma tabela no banco de dados.
 @Table(name="tb_postagem") //Indica o nome que a tabela vai ter.
@@ -14,17 +17,21 @@ public class Postagem
 {
 	@Id //Indica que o campo 'id' será uma chave primária.
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Equivale ao AUTO_INCREMENT do MySQL.
-	private Long id;
+	private long id;
 	@NotNull //Não pode ser campo vazio; @NotBlank, atualização, não pode ser vazio e nem espaços!
+	@Size(min = 5, max = 500)
 	private String titulo;
+	@NotNull
+	@Size(min = 10, max = 500)
 	private String texto;
-	private Date data;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date data = new java.sql.Date(System.currentTimeMillis());
 	//Depois de todos os atributos definidos, Source->Generate Getters/Setters:
-	public Long getId()
+	public long getId()
 	{
 		return id;
 	}
-	public void setId(Long id)
+	public void setId(long id)
 	{
 		this.id = id;
 	}
