@@ -17,7 +17,7 @@ public class Postagem
 {
 	@Id //Indica que o campo 'id' será uma chave primária.
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Equivale ao AUTO_INCREMENT do MySQL.
-	private long id;
+	private Long id;
 	@NotNull //Não pode ser campo vazio; @NotBlank, atualização, não pode ser vazio e nem espaços!
 	@Size(min = 5, max = 500)
 	private String titulo;
@@ -27,11 +27,11 @@ public class Postagem
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
 	//Depois de todos os atributos definidos, Source->Generate Getters/Setters:
-	public long getId()
+	public Long getId()
 	{
 		return id;
 	}
-	public void setId(long id)
+	public void setId(Long id)
 	{
 		this.id = id;
 	}
