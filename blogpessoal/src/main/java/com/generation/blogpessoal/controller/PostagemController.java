@@ -1,9 +1,7 @@
 package com.generation.blogpessoal.controller;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +43,7 @@ public class PostagemController
 		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
 	}
 	@PostMapping
-	public ResponseEntity<Postagem> adicionaPostagem(@RequestBody Postagem postagem)//Instancia novo objeto postagem;
+	public ResponseEntity<Postagem> adicionaPostagem(@Valid @RequestBody Postagem postagem)//Instancia novo objeto postagem;
 	{//CREATED = Status 201!
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(postagem));//Pode passar qlqr status, não precisa ser CREATED, mas usa cada status pra cada coisa que se quer executar!
 	}

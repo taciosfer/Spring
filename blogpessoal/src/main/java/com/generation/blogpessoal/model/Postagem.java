@@ -5,11 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //Criado um Objeto de Postagem!
 @Entity //Indica p/ Spring que o Objeto criado vai ser tornar uma tabela no banco de dados.
 @Table(name="tb_postagem") //Indica o nome que a tabela vai ter.
@@ -26,6 +28,9 @@ public class Postagem
 	private String texto;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
+	@ManyToOne//'Várias (postagens) para Um (tema)'!
+	@JsonIgnoreProperties("postagem")//Propriedade que será ignorada dentro do 'Tema'!
+	private Tema tema;//31-05, Criação da Classe 'Tema' + Get/Set dela;
 	//Depois de todos os atributos definidos, Source->Generate Getters/Setters:
 	public Long getId()
 	{
@@ -58,6 +63,12 @@ public class Postagem
 	public void setData(Date data)
 	{
 		this.data = data;
+	}
+	public Tema getTema() {
+		return tema;
+	}
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 }
 //Tudo que é feito no Spring é feito por meio de Anotações/Annotations!
