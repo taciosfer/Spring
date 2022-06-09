@@ -14,12 +14,12 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //Criado um Objeto de Postagem!
 @Entity //Indica p/ Spring que o Objeto criado vai ser tornar uma tabela no banco de dados.
-@Table(name="tb_postagem") //Indica o nome que a tabela vai ter.
+@Table(name = "tb_postagem") //Indica o nome que a tabela vai ter.
 public class Postagem
 {
 	@Id //Indica que o campo 'id' será uma chave primária.
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Equivale ao AUTO_INCREMENT do MySQL.
-	private Long id;
+	private long id;
 	@NotNull //Não pode ser campo vazio; @NotBlank, atualização, não pode ser vazio e nem espaços!
 	@Size(min = 5, max = 500)
 	private String titulo;
@@ -32,11 +32,11 @@ public class Postagem
 	@JsonIgnoreProperties("postagem")//Propriedade que será ignorada dentro do 'Tema'!
 	private Tema tema;//31-05, Criação da Classe 'Tema' + Get/Set dela;
 	//Depois de todos os atributos definidos, Source->Generate Getters/Setters:
-	public Long getId()
+	public long getId()
 	{
 		return id;
 	}
-	public void setId(Long id)
+	public void setId(long id)
 	{
 		this.id = id;
 	}

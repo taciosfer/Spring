@@ -31,7 +31,7 @@ public class PostagemController
 		return ResponseEntity.ok(repository.findAll()); //No geral vai ter um de cada, só o GET pode ter mais de um usando subrotas!
 	}
 	@GetMapping("/{id}") //Segundo método GET para fazer postagem por id! USA SUBROTA! Vai chamar /posts/id
-	public ResponseEntity<Postagem> buscaPostagemPorId(@PathVariable Long id) //Altera o apelido; Função preparada para receber qualquer valor!
+	public ResponseEntity<Postagem> buscaPostagemPorId(@PathVariable long id) //Altera o apelido; Função preparada para receber qualquer valor!
 	{ 
 		return repository.findById(id) //Não é findAll porque só pode trazer um único resultado!!!
 			.map(resposta -> ResponseEntity.ok(resposta)) //Lambda precisa de 'caso dê certo' e 'caso dê errado'; .map precisa de orElse!
