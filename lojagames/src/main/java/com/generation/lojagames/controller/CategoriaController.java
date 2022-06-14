@@ -19,7 +19,7 @@ import com.generation.lojagames.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping("/category")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class CategoriaController {
 	
 	@Autowired
@@ -27,36 +27,34 @@ public class CategoriaController {
 	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<Categoria>>buscaCategoria() {
+	public ResponseEntity<List<Categoria>> getAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Categoria> buscaCategoriaPorId(@PathVariable Long id) {
-		return repository.findById(id)
-			.map(resposta -> ResponseEntity.ok(resposta))
+		return repository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
 			.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Categoria>>buscaCategoriaPorNome(@PathVariable String nome) {
+	public ResponseEntity<List<Categoria>> buscaCategoriaPorNome(@PathVariable String nome) {
 		return ResponseEntity.ok(repository.findAllByTipoContainingIgnoreCase(nome));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Categoria>adicionaCategoria(@Valid @RequestBody Categoria categoria) {
+	public ResponseEntity<Categoria> adicionaCategoria(@Valid @RequestBody Categoria categoria) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(categoria));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Categoria>colocaCategoria(@Valid @RequestBody Categoria categoria) {
-		return categoriaRepository.findById(categoria.getId())
-				.map(resposta -> ResponseEntity.ok().body(categoriaRepository.save(categoria)))
-				.orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<Categoria> colocaCategoria(@Valid @RequestBody Categoria categoria) {
+		return categoriaRepository.findById(categoria.getId()).map(resposta -> ResponseEntity.ok().body(categoriaRepository.save(categoria)))
+			.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleta(@PathVariable Long id) {
+	public void deletaCategoria(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
 }

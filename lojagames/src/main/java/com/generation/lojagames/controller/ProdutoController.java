@@ -19,7 +19,7 @@ import com.generation.lojagames.repository.ProdutoRepository;
 
 @RestController
 @RequestMapping("/products")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class ProdutoController {
 	
 	@Autowired
@@ -27,36 +27,34 @@ public class ProdutoController {
 	private ProdutoRepository produtoRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<Produto>>buscaProduto() {
+	public ResponseEntity<List<Produto>> getAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Produto> buscaProdutoPorId(@PathVariable Long id) {
-		return repository.findById(id)
-			.map(resposta -> ResponseEntity.ok(resposta))
+		return repository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
 			.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Produto>>buscaProdutoPorNome(@PathVariable String nome) {
+	public ResponseEntity<List<Produto>> buscaProdutoPorNome(@PathVariable String nome) {
 		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Produto>adicionaProduto(@Valid @RequestBody Produto produto) {
+	public ResponseEntity<Produto> adicionaProduto(@Valid @RequestBody Produto produto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(produto));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Produto>colocaProduto(@Valid @RequestBody Produto produto) {
-		return produtoRepository.findById(produto.getId())
-				.map(resposta -> ResponseEntity.ok().body(produtoRepository.save(produto)))
-				.orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<Produto> colocaProduto(@Valid @RequestBody Produto produto) {
+		return produtoRepository.findById(produto.getId()).map(resposta -> ResponseEntity.ok().body(produtoRepository.save(produto)))
+			.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleta(@PathVariable Long id) {
+	public void deletaProduto(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
 }
