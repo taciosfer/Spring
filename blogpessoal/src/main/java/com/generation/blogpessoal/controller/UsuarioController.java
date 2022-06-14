@@ -2,9 +2,7 @@ package com.generation.blogpessoal.controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +42,7 @@ public class UsuarioController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<UsuarioLogin> Autentication(@RequestBody Optional<UsuarioLogin> user) { //AUTENTICATION!!! ATENÇÃO!!!
-		return usuarioService.Logar(user)
+		return usuarioService.LogaUsuario(user)
 		.map(resp -> ResponseEntity.ok(resp))
 		.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}

@@ -2,9 +2,7 @@ package com.generation.blogpessoal.service;
 
 import java.nio.charset.Charset;
 import java.util.Optional;
-
 import javax.validation.Valid;
-
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +16,7 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+// Regra de negócio para cadastro de usuário ¬¬
 	public Usuario CadastraUsuario(Usuario usuario) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
@@ -27,13 +25,13 @@ public class UsuarioService {
 		
 		return usuarioRepository.save(usuario);
 	}
-	
-	public Optional<UsuarioLogin> Logar(Optional<UsuarioLogin> user) {
+// Regra de negócio para login de usuário ¬¬
+	public Optional<UsuarioLogin> LogaUsuario(Optional<UsuarioLogin> user) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<Usuario> usuario = usuarioRepository.findByUsuario(user.get().getUsuario());
 		
 		if(usuario.isPresent()) {
-			if(encoder.matches(user.get().getSenha(), usuario.get().getSenha())) {
+			if(encoder.matches(user.get().getSenha(), usuario.get().getSenha())) { //Pega a senha encriptada e a não e compara!
 				
 				String auth = user.get().getUsuario() + " : " + user.get().getSenha();
 				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));

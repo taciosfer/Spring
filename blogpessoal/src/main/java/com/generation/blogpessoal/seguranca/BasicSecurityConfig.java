@@ -18,7 +18,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetailsService;
 	
 	@Override //Explicita que se trata de uma sobreescrita de método;
-	protected void  configure(AuthenticationManagerBuilder auth) throws Exception { //'throws' para tratativa de erros!
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception { //'throws' para tratativa de erros!
 		auth.userDetailsService(userDetailsService);
 	}
 	
@@ -32,7 +32,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers("/users/login").permitAll() //Endpoint liberado para clientes!
 		.antMatchers("/users/register").permitAll() //Endpoint liberado para clientes!
-		.anyRequest().authenticated() //Todas as demais requisições deverão serem autenticadas!
+		.anyRequest().authenticated() //Todas as demais requisições deverão serem autenticadas! A chave deverá ser passada no header!
 		.and().httpBasic() //Usar o padrão 'Basic' para geração do Token!
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //Não criará sessão http!!! É uma das funções de uma API Rest (??)
 		.and().cors() //Habilita o 'cors' (??)

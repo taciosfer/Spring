@@ -1,16 +1,6 @@
-package com.generation.blogpessoal.model;
+package com.generation.blogpessoal.model; //Model que responde o cliente com infos que ele precisa sobre os usuários!
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
 public class UsuarioLogin {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
 	
 	private String nome;
 	
