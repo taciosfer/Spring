@@ -14,17 +14,26 @@
 	<name>Blog Pessoal</name>
 	<description>Projeto de Blog Pessoal para o Bootcamp da Generation Brasil</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+	   	<dependency>
+      		<groupId>org.springdoc</groupId>
+      		<artifactId>springdoc-openapi-ui</artifactId>
+      		<version>1.6.9</version>
+   		</dependency>
+		<dependency>
     		<groupId>org.springframework.boot</groupId>
     		<artifactId>spring-boot-starter-security</artifactId>
-    		</dependency>
+    	</dependency>
 		<dependency>
     		<groupId>commons-codec</groupId>
    			<artifactId>commons-codec</artifactId>
-    		</dependency>
+    	</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>

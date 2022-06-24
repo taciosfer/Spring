@@ -26,6 +26,8 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
 	@GetMapping("/all")
@@ -42,18 +44,18 @@ public class UsuarioController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<UsuarioLogin> Autentication(@RequestBody Optional<UsuarioLogin> user) { //AUTENTICATION!!! ATENÇÃO!!!
-		return usuarioService.LogaUsuario(user)
+		return usuarioService.autenticarUsuario(user)
 		.map(resp -> ResponseEntity.ok(resp))
 		.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<Usuario> Post(@RequestBody Usuario usuario) {
+	public ResponseEntity<Optional<Usuario>> Post(@Valid @RequestBody Usuario usuario) {
 		return ResponseEntity.status(HttpStatus.CREATED)
-		.body(usuarioService.CadastraUsuario(usuario));
+		.body(usuarioService.cadastrarUsuario(usuario));
 	}
 	
-	@PutMapping
+	@PutMapping("/update")
 	public ResponseEntity<Usuario> Put(@Valid @RequestBody Usuario usuario) {
 		return usuarioService.atualizaUsuario(usuario)
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))

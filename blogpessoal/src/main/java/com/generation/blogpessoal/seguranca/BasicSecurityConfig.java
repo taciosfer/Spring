@@ -20,6 +20,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override //Explicita que se trata de uma sobreescrita de método;
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception { //'throws' para tratativa de erros!
 		auth.userDetailsService(userDetailsService);
+		auth.inMemoryAuthentication().withUser("root").password(passwordEncoder().encode("root")).authorities("ROLE_USER");
 	}
 	
 	@Bean

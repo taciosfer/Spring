@@ -28,9 +28,19 @@ public class Postagem
 	private String texto;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
-	@ManyToOne//'Várias (postagens) para Um (tema)'!
-	@JsonIgnoreProperties("postagem")//Propriedade que será ignorada dentro do 'Tema'!
-	private Tema tema;//31-05, Criação da Classe 'Tema' + Get/Set dela;
+	@ManyToOne //'Várias (postagens) para Um (tema)'!
+	@JsonIgnoreProperties("postagem") //Propriedade que será ignorada dentro do 'Tema'!
+	private Tema tema; //31-05, Criação da Classe 'Tema' + Get/Set dela;
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	//Depois de todos os atributos definidos, Source->Generate Getters/Setters:
 	public long getId()
 	{

@@ -13,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity //Para o JPA entender que se trata de uma tabela e mapeie;
 @Table(name = "tb_usuario") //Para essa tabela ter o nome designado dentro do banco de dados;
@@ -24,13 +25,13 @@ public class Usuario {
 	
 	@NotNull //Para não receber nenhum nome nulo;
 	@Size(min = 2, max = 100)
-	
 	private String nome;
 	
-	@NotNull
-	@Size(min = 4, max = 100)
+	@Schema(example = "email@email.com.br")
+	@NotNull(message = "Preenchimento obrigatório!")
+	@Size(min = 14, max = 100)
 	@Email(message = "Deve ser um email válido!")
-	private String usuario;
+	private String usuario; //O USUÁRIO É UM EMAIL!
 	
 	@NotBlank(message = "É obrigatória uma senha!")
 	@Size(min = 6, max = 100)
@@ -50,12 +51,10 @@ public class Usuario {
 		this.senha = senha;
 		this.foto = foto;
 	}
-	
 	//Junit #2, criar construtor vazio (default de execução):
 	public Usuario() {
 		
 	}
-	
 	//CTRL+3+GGAS: atalho para 'Generate Getters and Setters'!
 	public long getId() { //O MALDITO DO 'Long'! > > > EXTREMA ATENÇÃO < < <
 		return id;
